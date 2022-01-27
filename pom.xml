@@ -1,49 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-The contents of this file are subject to the Terracotta Public License Version
-2.0 (the "License"); You may not use this file except in compliance with the
-License. You may obtain a copy of the License at 
-
-     http://terracotta.org/legal/terracotta-public-license.
-
-Software distributed under the License is distributed on an "AS IS" basis,
-WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
-the specific language governing rights and limitations under the License.
-
-The Covered Software is Terracotta Platform.
-
-The Initial Developer of the Covered Software is 
-     Terracotta, Inc., a Software AG company
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
+<project xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-
   <parent>
     <groupId>org.terracotta.forge</groupId>
     <artifactId>forge-parent</artifactId>
     <version>5.7</version>
     <relativePath/>
   </parent>
-
   <groupId>org.terracotta</groupId>
   <artifactId>terracotta-root</artifactId>
-  <version>4.3.10-SNAPSHOT</version>
+  <version>4.3.10.2.11</version>
   <name>terracotta-root</name>
   <packaging>pom</packaging>
-
   <scm>
     <developerConnection>scm:git:https://github.com/Terracotta-OSS/dso.git</developerConnection>
   </scm>
-  
   <properties>
     <build.edition>opensource</build.edition>
     <tc-shader.version>1.2</tc-shader.version>
     <skip.deploy>false</skip.deploy>
-    <!-- can't default to ${project.version}, breaks child projects like ehcache that use a different version -->
-    <thirdparty-bom.version>4.3.10-SNAPSHOT</thirdparty-bom.version>
+    <thirdparty-bom.version>4.3.10.2.20</thirdparty-bom.version>
   </properties>
-
   <modules>
     <module>build-parent</module>
     <module>build-data</module>
@@ -54,28 +30,23 @@ The Initial Developer of the Covered Software is
     <module>dso-l1</module>
     <module>dso-l2</module>
     <module>deploy</module>
-
     <module>legacy-test-tree</module>
     <module>dso-system-tests</module>
-
     <module>terracotta-parent</module>
     <module>terracotta</module>
     <module>terracotta-l1-parent</module>
     <module>terracotta-l1</module>
     <module>test-framework</module>
     <module>system-tests-parent</module>
-
     <module>toolkit-impl</module>
     <module>toolkit-express-impl</module>
     <module>toolkit-runtime</module>
-
     <module>management</module>
     <module>management-agent</module>
     <module>terracotta-samples</module>
     <module>server-script</module>
     <module>management-cli-oss</module>
   </modules>
-
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -87,7 +58,6 @@ The Initial Developer of the Covered Software is
       </dependency>
     </dependencies>
   </dependencyManagement>
-
   <build>
     <pluginManagement>
       <plugins>
@@ -103,10 +73,10 @@ The Initial Developer of the Covered Software is
               </goals>
               <configuration>
                 <scripts>
-                  <script><![CDATA[
+                  <script>
                         new org.reflections.Reflections(["com", "org", "net"])
                             .save("${project.build.directory}/reflections.xml")
-                    ]]></script>
+                    </script>
                 </scripts>
               </configuration>
             </execution>
@@ -135,7 +105,6 @@ The Initial Developer of the Covered Software is
             </dependency>
           </dependencies>
         </plugin>
-
       </plugins>
     </pluginManagement>
     <plugins>
@@ -152,7 +121,7 @@ The Initial Developer of the Covered Software is
           <licenseSets>
             <licenseSet>
               <inlineHeader>
-                <![CDATA[The contents of this file are subject to the Terracotta Public License Version
+                The contents of this file are subject to the Terracotta Public License Version
 2.0 (the "License"); You may not use this file except in compliance with the
 License. You may obtain a copy of the License at
 
@@ -165,7 +134,7 @@ the specific language governing rights and limitations under the License.
 The Covered Software is Terracotta Platform.
 
 The Initial Developer of the Covered Software is
-     Terracotta, Inc., a Software AG company]]></inlineHeader>
+     Terracotta, Inc., a Software AG company</inlineHeader>
               <excludes>
                 <exclude>**/target/**</exclude>
                 <exclude>azure-pipelines.yml</exclude>
@@ -189,9 +158,7 @@ The Initial Developer of the Covered Software is
       </plugin>
     </plugins>
   </build>
-
   <profiles>
-    <!-- Allow building kit from the top level -->
     <profile>
       <id>kit</id>
       <modules>
@@ -204,8 +171,6 @@ The Initial Developer of the Covered Software is
         <module>terracotta-kit</module>
       </modules>
     </profile>
-  
-    <!-- activate to include EE modules if it's EE branch -->
     <profile>
       <id>include-ee-modules</id>
       <properties>
@@ -235,7 +200,6 @@ The Initial Developer of the Covered Software is
         <module>../toolkit-lrt-system-tests</module>
       </modules>
     </profile>
-
     <profile>
       <id>terracotta-checkstyle</id>
       <activation>
@@ -247,9 +211,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/terracotta-checkstyle</module>
       </modules>
     </profile>
-
-    <!-- activate by default if 'terracotta-toolkit-api' module exists.
-         You have to check out this module manually under 'community/devwork' -->
     <profile>
       <id>toolkit-api</id>
       <activation>
@@ -261,7 +222,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/terracotta-toolkit-api</module>
       </modules>
     </profile>
-
     <profile>
       <id>toolkit-api-internal</id>
       <activation>
@@ -273,7 +233,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/terracotta-toolkit-api-internal</module>
       </modules>
     </profile>
-
     <profile>
       <id>ehcache-parent</id>
       <activation>
@@ -285,10 +244,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/ehcache-parent</module>
       </modules>
     </profile>
-    <!-- activate by default if 'ehcache' module exists.
-         You have to check out this module manually under 'community/devwork'.
-         The 'ehcache-ee' module includes 'ehcache' (as 'ehcache-os') so this profile
-         is unneeded if 'ehcache-ee' is present. -->
     <profile>
       <id>ehcache</id>
       <activation>
@@ -300,9 +255,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/ehcache</module>
       </modules>
     </profile>
-    <!-- activate by default if 'ehcache-ee' module exists.
-         You have to check out this module manually under 'community/devwork'.
-         This module includes the 'ehcache' module (as 'ehcache-os'). -->
     <profile>
       <id>ehcache-ee</id>
       <activation>
@@ -314,7 +266,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/ehcache-ee</module>
       </modules>
     </profile>
-
     <profile>
       <id>quartz</id>
       <activation>
@@ -326,7 +277,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/quartz</module>
       </modules>
     </profile>
-
     <profile>
       <id>quartz-ee</id>
       <activation>
@@ -338,7 +288,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/quartz-ee</module>
       </modules>
     </profile>
-
     <profile>
       <id>management-core</id>
       <activation>
@@ -350,7 +299,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/management-core</module>
       </modules>
     </profile>
-
     <profile>
       <id>management-common</id>
       <activation>
@@ -362,7 +310,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/management-common</module>
       </modules>
     </profile>
-
     <profile>
       <id>management-apps</id>
       <activation>
@@ -374,7 +321,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/management-apps</module>
       </modules>
     </profile>
-
     <profile>
       <id>tc-messaging</id>
       <activation>
@@ -386,7 +332,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/tc-messaging</module>
       </modules>
     </profile>
-
     <profile>
       <id>ipc-eventbus</id>
       <activation>
@@ -398,7 +343,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/ipc-eventbus</module>
       </modules>
     </profile>
-
     <profile>
       <id>core-storage-api</id>
       <activation>
@@ -410,7 +354,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/core-storage-api</module>
       </modules>
     </profile>
-
     <profile>
       <id>heap-core-storage</id>
       <activation>
@@ -422,7 +365,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/heap-core-storage</module>
       </modules>
     </profile>
-
     <profile>
       <id>bigmemory-core-storage</id>
       <activation>
@@ -434,7 +376,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/bigmemory-core-storage</module>
       </modules>
     </profile>
-
     <profile>
       <id>offheap-restartable-store</id>
       <activation>
@@ -446,7 +387,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/offheap-restartable-store</module>
       </modules>
     </profile>
-
     <profile>
       <id>bigmemory-restartable-core-storage</id>
       <activation>
@@ -458,7 +398,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/bigmemory-restartable-core-storage</module>
       </modules>
     </profile>
-
     <profile>
       <id>search</id>
       <activation>
@@ -470,7 +409,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/search</module>
       </modules>
     </profile>
-
     <profile>
       <id>terracotta-license</id>
       <activation>
@@ -482,7 +420,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/terracotta-license</module>
       </modules>
     </profile>
-
     <profile>
       <id>offheap-store</id>
       <activation>
@@ -494,7 +431,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/offheap-store</module>
       </modules>
     </profile>
-
     <profile>
       <id>statistics</id>
       <activation>
@@ -506,7 +442,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/statistics</module>
       </modules>
     </profile>
-
     <profile>
       <id>security-modules</id>
       <activation>
@@ -518,7 +453,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/security-modules</module>
       </modules>
     </profile>
-
     <profile>
       <id>container-test-framework</id>
       <activation>
@@ -530,7 +464,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/container-test-framework</module>
       </modules>
     </profile>
-
     <profile>
       <id>wan40</id>
       <activation>
@@ -542,7 +475,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/wan40</module>
       </modules>
     </profile>
-
     <profile>
       <id>terracotta-sessions</id>
       <activation>
@@ -554,7 +486,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/terracotta-sessions</module>
       </modules>
     </profile>
-
     <profile>
       <id>osgi-test-tool</id>
       <activation>
@@ -566,7 +497,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/osgi-test-tool</module>
       </modules>
     </profile>
-
     <profile>
       <id>fast-restartable-store</id>
       <activation>
@@ -578,7 +508,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/fast-restartable-store</module>
       </modules>
     </profile>
-
     <profile>
       <id>product-upgradability-testing-utils</id>
       <activation>
@@ -590,7 +519,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/product-upgradability-testing-utils</module>
       </modules>
     </profile>
-
     <profile>
       <id>jmxremote_optional_tc</id>
       <activation>
@@ -602,7 +530,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/jmxremote_optional_tc</module>
       </modules>
     </profile>
-
     <profile>
       <id>linked-child-process</id>
       <activation>
@@ -614,7 +541,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/linked-child-process</module>
       </modules>
     </profile>
-
     <profile>
       <id>test-listeners</id>
       <activation>
@@ -626,7 +552,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/test-listeners</module>
       </modules>
     </profile>
-
     <profile>
       <id>clustered-entity-management</id>
       <activation>
@@ -638,7 +563,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/clustered-entity-management</module>
       </modules>
     </profile>
-
     <profile>
       <id>tc-config-schema</id>
       <activation>
@@ -650,7 +574,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/tc-config-schema</module>
       </modules>
     </profile>
-
     <profile>
       <id>x-platform</id>
       <activation>
@@ -662,7 +585,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/x-platform</module>
       </modules>
     </profile>
-
     <profile>
       <id>bigmemory-max-code-samples</id>
       <activation>
@@ -674,7 +596,6 @@ The Initial Developer of the Covered Software is
         <module>devwork/bigmemory-max/code-samples</module>
       </modules>
     </profile>
-
     <profile>
       <id>bigmemory-go-code-samples</id>
       <activation>
@@ -686,9 +607,7 @@ The Initial Developer of the Covered Software is
         <module>devwork/bigmemory-go/code-samples</module>
       </modules>
     </profile>
-
   </profiles>
-
   <distributionManagement>
     <repository>
       <id>terracotta-nexus-staging</id>
@@ -696,7 +615,6 @@ The Initial Developer of the Covered Software is
       <url>${terracotta-nexus-staging-url}</url>
     </repository>
   </distributionManagement>
-
   <repositories>
     <repository>
       <id>sonatype-snapshots</id>
@@ -708,7 +626,6 @@ The Initial Developer of the Covered Software is
         <enabled>false</enabled>
       </releases>
     </repository>
-    <!-- this we need to find parent -->
     <repository>
       <id>terracotta-releases</id>
       <url>https://repo.terracotta.org/maven2</url>
